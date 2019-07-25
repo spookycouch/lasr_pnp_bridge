@@ -1,0 +1,10 @@
+#goal definition
+string action
+string params
+---
+#result definition
+int32 exit_status
+string set_variable
+---
+#feedback definition
+bool run

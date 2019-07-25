@@ -1,0 +1,15 @@
+#goal definition
+#action command to send (should be in the form action_param1_param2_...)
+string action
+string[] params
+---
+#result definition
+#exit status of sent action, event to publish to /PNPConditionEvent
+int32 exit_status
+string[] condition_event
+string[] set_variable_variable
+string[] set_variable_value
+---
+#feedback definition
+#action running smoothly
+bool run
