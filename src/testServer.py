@@ -10,12 +10,12 @@ import lasr_pnp_bridge.msg
 from std_msgs.msg import String
 
 class Random_server(object):
-    _feedback = lasr_pnp_bridge.msg.bridgeFeedback()
-    _result = lasr_pnp_bridge.msg.bridgeResult()
+    _feedback = lasr_pnp_bridge.msg.BridgeFeedback()
+    _result = lasr_pnp_bridge.msg.BridgeResult()
 
     def __init__(self, name):
         rospy.loginfo('ExternalServer action server initialised!')
-        self._as = actionlib.SimpleActionServer(name, lasr_pnp_bridge.msg.bridgeAction, execute_cb = self.execute_cb, auto_start = False)
+        self._as = actionlib.SimpleActionServer(name, lasr_pnp_bridge.msg.BridgeAction, execute_cb = self.execute_cb, auto_start = False)
         self._as.start()
         self._plan_manager = rospy.Publisher('planToExec', String, queue_size=10)
     
@@ -23,10 +23,7 @@ class Random_server(object):
         rospy.loginfo("----------ExternalServer start----------")
 
         # reset result 
-        self._result.exit_status = 0
-        self._result.condition_event = []
-        self._result.set_variable_variable = []
-        self._result.set_variable_value = []
+        self._result = lasr_pnp_bridge.msg.BridgeResult()
 
         # log action and parameters
         rospy.loginfo("action is: " + str(goal.action))
@@ -48,8 +45,7 @@ class Random_server(object):
     def gotoAndCount(self, table, tableNo):
         rospy.loginfo("going to " + table + " " + tableNo)
         if int(tableNo) < 3:
-            self._result.set_variable_variable = ['X']
-            self._result.set_variable_value = [str(int(tableNo) + 1)]
+            self._result.set_variables = [lasr_pnp_bridge.msg.VariableValue(variable='X', value=str(int(tableNo) + 1))]
         else:
             self._result.condition_event = ["countedAll"]
 

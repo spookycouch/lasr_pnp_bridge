@@ -5,9 +5,9 @@
 #include <pnp_msgs/PNPAction.h>
 #include <pnp_msgs/PNPCondition.h>
 #include <pnp_ros/PNPActionServer.h>
-#include <lasr_pnp_bridge/bridgeAction.h>
+#include <lasr_pnp_bridge/BridgeAction.h>
 
-typedef actionlib::SimpleActionClient<lasr_pnp_bridge::bridgeAction> ActionClient;
+typedef actionlib::SimpleActionClient<lasr_pnp_bridge::BridgeAction> ActionClient;
 
 class GenericActionServer : public PNPActionServer
 {
@@ -63,7 +63,7 @@ class GenericActionServer : public PNPActionServer
             }
 
             // create goal
-            lasr_pnp_bridge::bridgeGoal goal;
+            lasr_pnp_bridge::BridgeGoal goal;
             
             // extract action and params from action_cmd
             std::replace(action_cmd.begin(), action_cmd.end(), '_', ' ');
@@ -86,7 +86,7 @@ class GenericActionServer : public PNPActionServer
             }
 
             // get result
-            lasr_pnp_bridge::bridgeResultConstPtr result = action_clients[topic]->getResult();
+            lasr_pnp_bridge::BridgeResultConstPtr result = action_clients[topic]->getResult();
             ROS_INFO_STREAM("Action completed. exit_status=" << result->exit_status);
 
             // publish PNP condition events
@@ -98,11 +98,11 @@ class GenericActionServer : public PNPActionServer
             }
 
             // call PNP set variable service
-            for(unsigned i = 0; i < result->set_variable_variable.size(); ++i)
+            for(unsigned i = 0; i < result->set_variables.size(); ++i)
             {
                 pnp_msgs::PNPSetVariableValue variable_out;
-                variable_out.request.variable = result->set_variable_variable[i];
-                variable_out.request.value = result->set_variable_value[i];
+                variable_out.request.variable = result->set_variables[i].variable;
+                variable_out.request.value = result->set_variables[i].value;
                 variable_client.call(variable_out);
             }
         }
