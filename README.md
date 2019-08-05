@@ -66,7 +66,7 @@ passed by the LASR PNP Bridge.
 # Additional Features
 
 **Result: exit_status**
- - an int that can be used to indicate the exit status of an action
+ - An int that can be used to indicate the exit status of an action
 
 
 **Result: condition_event**
