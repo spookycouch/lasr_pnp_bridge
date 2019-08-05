@@ -15,7 +15,7 @@ Places (PNP)
  * LASR created a generic action that will send actionNames and params to any Action Server
  * This allows external Servers written in Python and C++ to provide implementations
  * Commands will be parsed and send a goal of strings - action, params[] - to a specified topic
- * Syntax for PNP place: 'extern\_topicName/ActionName\_param1\_param2\_...'
+ * Syntax for PNP place: `extern\_topicName/ActionName\_param1\_param2\_...`
 
 Actions (Python and C++)
  * Actions can be implemented in Python using Actionlib Simple Action Servers
@@ -40,7 +40,7 @@ PNP node.
 To run a plan, publish the plan name (- .pnml) of a plan located in the plans folder
 to the ROS topic /planToExec.
 
-Any places in the PNP of the form 'extern\_topicName/actionName\_param1\_param2\_...'
+Any places in the PNP of the form `extern\_topicName/actionName\_param1\_param2\_...`
 will be parsed by the LASR PNP Bridge, where the actionName and params will be sent
 as a goal to an Action Server at topicName.
 
